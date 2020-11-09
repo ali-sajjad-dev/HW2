@@ -38,7 +38,9 @@ void Stack<T>::pop()
 		return;
 	}
 	else
-	{
+	{	
+		// create temp node and reference the node below top
+		// delete top and reassign top
 		MoveNode<T>* tmp;
 		tmp = top->next;
 		delete top;
@@ -47,14 +49,18 @@ void Stack<T>::pop()
 	}
 }
 
+// prints out the stack path taken
 template<typename T>
 void Stack<T>::print_Stack_path()
 {
+	// temp node
 	MoveNode<T>* tmp = top;
 
 	cout << "END";
+	// as long as it doesnt point to nothing keep traverseing
 	while (tmp != nullptr)
 	{
+		// print corresponding coordinates as pointer traverses.
 		cout << " <- ";
 		cout << "(" << tmp->move[0] << ", " << tmp->move[1] << ")";
 		tmp = tmp->next;
@@ -63,6 +69,7 @@ void Stack<T>::print_Stack_path()
 }
 
 
+// insert data to any point in stack
 template<typename T>
 void Stack<T>::insert(int index, T x, T y)
 {
@@ -72,12 +79,14 @@ void Stack<T>::insert(int index, T x, T y)
 		cout << "Invalid index" << endl;
 		return;
 	}
+	// if you want to insert at the top then just call push()
 	else if (index == 0)
 	{
 		push(x, y);
 	}
 	else
 	{
+		// create a temp node and traverse until right before index of interest
 		MoveNode<T>* tmp = top;
 		for (int i = 0; i < index - 1; i++)
 		{
@@ -99,11 +108,12 @@ void Stack<T>::insert(int index, T x, T y)
 template<typename T>
 bool Stack<T>::isLegal(T maze[][5], int row, int col)
 {
-	// returns false if path is obstructed
+	// returns false if path is obstructed or out of bounds
 	if (row > 4 || col > 4)
 	{
 		return false;
 	}
+	// check is terrain is passable
 	else if (maze[row][col] == 1)
 	{
 		return true;
@@ -131,11 +141,14 @@ void Stack<T>::solveMaze(T maze[][5], int row, int col)
 	// continue until END position is reached
 	while (!current_pos->compare(*END))
 	{
+		// correspond to the next possible postion
 		int next_row = row + 1;
 		int next_col = col + 1;
-
+		
+		// check if move is legal
 		if (isLegal(maze, next_row, col))
 		{
+			// go downward 
 			row++;
 			push(row, col);
 			current_pos = top;
@@ -143,6 +156,7 @@ void Stack<T>::solveMaze(T maze[][5], int row, int col)
 		}
 		else if (isLegal(maze, row, next_col))
 		{
+			// go accross
 			col++;
 			push(row, col);
 			current_pos = top;
@@ -156,7 +170,7 @@ void Stack<T>::solveMaze(T maze[][5], int row, int col)
 
 			if (step_taken)
 			{
-				// take alternative
+				// take alternative as soon as you backtrack
 				if (isLegal(maze, row - 1, col + 1))
 					push(--row, ++col);
 				current_pos = top;
@@ -165,7 +179,8 @@ void Stack<T>::solveMaze(T maze[][5], int row, int col)
 			}
 			else
 			{
-				// take alternative
+				// take alternative as soon as you backtrack
+				// so as to not be stuck taking the same illegal move
 				if (isLegal(maze, row + 1, col + 1))
 					push(++row, --col);
 				current_pos = top;
