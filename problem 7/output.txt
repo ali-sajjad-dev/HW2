@@ -1,5 +1,6 @@
 
 
 // outputs moves necessary from start to finish to console
+// NOTE! The arrows depict the path taken not the arrangement of nodes in the stack, which is the opposite direction
 
 END <- (4, 4) <- (4, 3) <- (3, 3) <- (2, 3) <- (2, 2) <- (1, 2) <- (1, 1) <- (1, 0) <- (0, 0) START
