@@ -4,20 +4,29 @@
 // Program: Postfix Calculator  
 // This program evaluates postfix expressions.
 //***********************************************************
-  
+
+// input/output stream lib
 #include <iostream>  
+// library to give us a variaty of parameteric manipulators
 #include <iomanip>
+// input/output stream lib to operate on files
 #include <fstream>
+// stack header file
 #include "mystack.h"
  
+// name space for std lib, namely std::operation
 using namespace std; 
 
+// void function to evaluate an expression
 void evaluateExpression(ifstream& inpF, ofstream& outF, 
                         stackType<double>& stack,
                         char& ch, bool& isExpOk);
+// void function to evaluate an operation
 void evaluateOpr(ofstream& out, stackType<double>& stack,
                  char& ch, bool& isExpOk);
+// function to discard an expressionn whenever an error is detected
 void discardExp(ifstream& in, ofstream& out, char& ch);
+// print out the stack results 
 void printResult(ofstream& outF, stackType<double>& stack,
                  bool isExpOk);
 
