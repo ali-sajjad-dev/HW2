@@ -8,7 +8,8 @@ using namespace std;
 // create an arbitrary maze
 
 int main() {
-
+	
+	// maze, 1s are legal, 0s are impassable terrain
 	int maze[5][5] = {
 
 		{1, 0, 0, 0, 0},
@@ -32,9 +33,11 @@ int main() {
 	path.print_Stack_path();
 }
 
+// custom comparator, determine whether 2 nodes i.e. coordinates are the same spot in the maze
 template <typename T>
 bool MoveNode<T>::compare(MoveNode x)
 {
+	// compare class object to another object
 	if (move[0] == x.move[0] && move[1] == x.move[1])
 	{
 		return true;
